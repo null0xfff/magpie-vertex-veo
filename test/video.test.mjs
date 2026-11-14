@@ -49,7 +49,7 @@ describe("operationState", () => {
   test("filtered", () => {
     const st = operationState({ done: true, response: { raiMediaFilteredCount: 1, raiMediaFilteredReasons: ["Unsafe content"] } }, ctx)
     expect(st).toMatchObject({ status: "failed", error: { code: "content_filtered", message: "Unsafe content" } })
-    expect(operationState({ done: true, response: { raiMediaFilteredCount: 1 } }, ctx).error.message).toBe("Video filtered by safety policy")
+    expect(operationState({ done: true, response: { raiMediaFilteredCount: 1 } }, ctx).error.message).toBe("视频未通过安全策略审核")
     expect(operationState({ done: true, response: {} }, ctx).error.code).toBe("content_filtered")
   })
   test("completed", () => {
@@ -110,7 +110,7 @@ describe("status and content through the plugin", () => {
 
     res = await h.call(`/videos/${id}/content`)
     expect(res.status).toBe(409)
-    expect((await res.json()).error.message).toContain("isn't ready")
+    expect((await res.json()).error.message).toContain("尚未就绪")
 
     res = await h.call(`/videos/${id}`)
     expect(await res.json()).toMatchObject({ status: "completed", progress: 100, model: "veo-3.1-generate-001" })

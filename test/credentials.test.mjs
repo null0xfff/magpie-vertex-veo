@@ -47,13 +47,13 @@ describe("service account JSON", () => {
       expect(e.signIn).toBe("expired")
       expect(e.message).toContain("private_key")
     }
-    expect(() => parseCredentialJSON(JSON.stringify({ type: "external_account" }))).toThrow(/unsupported credential type/)
+    expect(() => parseCredentialJSON(JSON.stringify({ type: "external_account" }))).toThrow(/不支持的凭据类型/)
   })
 
   test("reads a key file, and says when it can't", () => {
     const p = writeKeyFile(serviceAccount("x"))
     expect(readCredentialFile(p).clientEmail).toContain("@")
-    expect(() => readCredentialFile("/definitely/not/here.json")).toThrow(/can't read credentials file/)
+    expect(() => readCredentialFile("/definitely/not/here.json")).toThrow(/无法读取凭据文件/)
   })
 
   test("parses an authorized_user ADC file", () => {

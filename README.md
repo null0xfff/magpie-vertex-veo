@@ -14,7 +14,7 @@
 | `veo-3.1-generate-001` | Veo 3.1（默认推荐） |
 | `veo-3.1-fast-generate-001` | Veo 3.1 Fast |
 | `veo-3.1-lite-generate-001` | Veo 3.1 Lite |
-| `veo-3.0-generate-001` / `veo-3.0-fast-generate-001` / `veo-2.0-generate-001` | 可选：登录时选「Also list Veo 3.0 / Veo 2 models? → Yes」，或设置环境变量 `VERTEX_VEO_LEGACY_MODELS=1` |
+| `veo-3.0-generate-001` / `veo-3.0-fast-generate-001` / `veo-2.0-generate-001` | 可选：登录时选「是否同时列出 Veo 3.0 / Veo 2 模型？ → 是」，或设置环境变量 `VERTEX_VEO_LEGACY_MODELS=1` |
 
 Google 发布了新的模型 ID（比如 preview 版）时，可以用环境变量 `VERTEX_VEO_EXTRA_MODELS="id1,id2"` 加进来，不用等插件更新。
 
@@ -43,15 +43,15 @@ docker exec -it magpie-magpie-1 /magpie plugin login vertex-veo 1
 
 也可以在 Magpie Web 界面里给 **Vertex AI Veo** 添加账号。有三种方式：
 
-1. **Service account key file (path inside the container)**（Docker 推荐）
+1. **服务账号密钥文件（容器内路径）**（Docker 推荐）
    - `credentialsPath`：`/config/credentials/vertex-still-function-sa.json`
    - `projectId`：可留空，留空时使用 JSON 里的 `project_id`
-   - `location`：可留空，默认 `us-central1`
+   - `location`：可留空，默认 `us-central1`（不支持 `us`、`eu` 等多区域）
    - `storageUri`：可留空。留空时 Vertex 直接把视频字节内联返回，不需要 GCS 存储桶；填 `gs://bucket/prefix/` 则视频写到 GCS，插件再用同一个 SA Token 流式下载
    - `accountLabel`：可选，账号显示名称
    - 每次请求都会重新读取密钥文件，轮换密钥文件后不需要重新登录。
-2. **Paste service account key JSON**：粘贴完整 JSON，字段同上。JSON 会作为账号的 key 保存在 Magpie 的凭据存储里，不会写进 metadata。
-3. **Application Default Credentials**：使用 `GOOGLE_APPLICATION_CREDENTIALS`、gcloud 的 `application_default_credentials.json`（`authorized_user`），或者 GCE/GKE 元数据服务器。
+2. **粘贴服务账号密钥 JSON**：粘贴完整 JSON，字段同上。JSON 会作为账号的 key 保存在 Magpie 的凭据存储里，不会写进 metadata。
+3. **应用默认凭据 ADC（GOOGLE_APPLICATION_CREDENTIALS / gcloud / 元数据服务器）**：使用 `GOOGLE_APPLICATION_CREDENTIALS`、gcloud 的 `application_default_credentials.json`（`authorized_user`），或者 GCE/GKE 元数据服务器。
 
 登录时插件会实际换取一次 OAuth Token 来校验凭据，密钥错误会在登录时直接报出来，不会等到第一次生成视频才失败。
 
