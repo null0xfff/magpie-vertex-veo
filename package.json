@@ -1,7 +1,7 @@
 {
   "name": "magpie-vertex-veo",
   "version": "0.1.0",
-  "description": "Magpie & OpenCode provider plugin for Google Vertex AI Veo video generation (service account / ADC, OpenAI Videos API shape)",
+  "description": "Magpie / OpenCode 的 Google Vertex AI Veo 视频生成插件（支持服务账号 / ADC、OpenAI Videos API 协议转换）",
   "type": "module",
   "main": "./index.mjs",
   "exports": "./index.mjs",
@@ -29,7 +29,10 @@
   },
   "magpie": {
     "name": "Vertex AI Veo",
-    "summary": "Google Vertex AI Veo video models (veo-3.1 / fast / lite) through a service account, pasted key JSON or ADC — headless, no browser sign-in.",
+    "summary": {
+      "zh": "通过服务账号、粘贴密钥 JSON 或 ADC 无头接入 Google Vertex AI Veo 视频模型（veo-3.1 / fast / lite），无需浏览器登录。",
+      "en": "Google Vertex AI Veo video models (veo-3.1 / fast / lite) through a service account, pasted key JSON or ADC — headless, no browser sign-in."
+    },
     "icon": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect x=%222%22 y=%225%22 width=%2214%22 height=%2214%22 rx=%223%22 fill=%22%234285F4%22/%3E%3Cpath d=%22M16 10.2l5.2-3v9.6l-5.2-3z%22 fill=%22%2334A853%22/%3E%3Cpath d=%22M7 9.2v5.6l4.6-2.8z%22 fill=%22%23fff%22/%3E%3C/svg%3E"
   },
   "repository": {

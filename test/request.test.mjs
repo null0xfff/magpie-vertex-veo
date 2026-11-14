@@ -37,7 +37,7 @@ describe("predictBody", () => {
       { image: { bytesBase64Encoded: "iVBORw0KGgo=", mimeType: "image/png" }, referenceType: "asset" },
       { image: { bytesBase64Encoded: "/9j/4AAQSkZJRg==", mimeType: "image/jpeg" }, referenceType: "asset" },
     ])
-    expect(() => predictBody({ model: "veo-3.1-generate-001", prompt: "p", reference_images: [PNG, PNG, PNG, PNG] })).toThrow(/at most 3/)
+    expect(() => predictBody({ model: "veo-3.1-generate-001", prompt: "p", reference_images: [PNG, PNG, PNG, PNG] })).toThrow(/最多支持 3 张/)
   })
 
   test("gs:// images", () => {
@@ -71,7 +71,7 @@ describe("predictBody", () => {
   test("explicit aspect_ratio / resolution override size", () => {
     const p = predictBody({ model: "veo-3.1-generate-001", prompt: "p", size: "1280x720", aspect_ratio: "9:16", resolution: "1080p" }).parameters
     expect(p).toMatchObject({ aspectRatio: "9:16", resolution: "1080p" })
-    expect(() => predictBody({ model: "veo-3.1-generate-001", prompt: "p", aspect_ratio: "1:1" })).toThrow(/16:9 or 9:16/)
+    expect(() => predictBody({ model: "veo-3.1-generate-001", prompt: "p", aspect_ratio: "1:1" })).toThrow(/16:9 或 9:16/)
   })
 
   test("seconds: parsed and snapped to what the model makes", () => {
@@ -105,7 +105,7 @@ describe("predictBody", () => {
       generateAudio: true,
       sampleCount: 4,
     })
-    expect(() => predictBody({ model: "veo-3.1-generate-001", prompt: "p", n: 5 })).toThrow(/1 to 4/)
+    expect(() => predictBody({ model: "veo-3.1-generate-001", prompt: "p", n: 5 })).toThrow(/1 到 4/)
     expect(() => predictBody({ model: "veo-3.1-generate-001", prompt: "p", seed: -1 })).toThrow(/seed/)
   })
 

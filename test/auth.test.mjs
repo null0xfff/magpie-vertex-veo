@@ -45,7 +45,8 @@ describe("auth.methods", () => {
     const m = hooks.auth.methods[0]
     expect(await m.authorize({ credentialsPath: "/nope/sa.json" })).toMatchObject({ type: "failed" })
     const p = writeKeyFile(serviceAccount(mock.tokenUri))
-    expect((await m.authorize({ credentialsPath: p, location: "Not A Region" })).error).toContain("location")
+    expect((await m.authorize({ credentialsPath: p, location: "Not A Region" })).error).toContain("区域")
+    expect((await m.authorize({ credentialsPath: p, location: "us" })).error).toContain("多区域")
     expect((await m.authorize({ credentialsPath: p, storageUri: "s3://x" })).error).toContain("gs://")
     mock.state.tokenStatus = 400
     const r = await m.authorize({ credentialsPath: p })
@@ -57,7 +58,7 @@ describe("auth.methods", () => {
     const hooks = await hooksFor()
     const m = hooks.auth.methods[1]
     const prompt = m.prompts[0]
-    expect(prompt.validate("{oops")).toContain("not valid JSON")
+    expect(prompt.validate("{oops")).toContain("有效的 JSON")
     expect(prompt.validate(JSON.stringify({ type: "service_account", client_email: "x" }))).toContain("private_key")
     const sa = serviceAccount(mock.tokenUri)
     expect(prompt.validate(JSON.stringify(sa, null, 2))).toBeUndefined()
@@ -72,7 +73,7 @@ describe("auth.methods", () => {
     const hooks = await hooksFor()
     const sa = serviceAccount(mock.tokenUri, { project_id: undefined })
     const m = hooks.auth.methods[1]
-    expect((await m.authorize({ credentialsJson: JSON.stringify(sa) })).error).toContain("project")
+    expect((await m.authorize({ credentialsJson: JSON.stringify(sa) })).error).toContain("project_id")
     expect((await m.authorize({ credentialsJson: JSON.stringify(sa), projectId: "given-project" })).type).toBe("success")
   })
 
