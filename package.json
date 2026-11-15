@@ -9,6 +9,7 @@
     "index.mjs",
     "lib/",
     "README.md",
+    "README.en.md",
     "LICENSE"
   ],
   "scripts": {
@@ -16,12 +17,16 @@
   },
   "keywords": [
     "magpie",
+    "magpie-plugin",
     "opencode",
     "opencode-plugin",
     "vertex-ai",
     "google-cloud",
     "veo",
-    "video-generation"
+    "veo3",
+    "video-generation",
+    "text-to-video",
+    "image-to-video"
   ],
   "license": "MIT",
   "engines": {
@@ -38,5 +43,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/null0xfff/magpie-vertex-veo.git"
+  },
+  "homepage": "https://github.com/null0xfff/magpie-vertex-veo#readme",
+  "bugs": {
+    "url": "https://github.com/null0xfff/magpie-vertex-veo/issues"
   }
 }
